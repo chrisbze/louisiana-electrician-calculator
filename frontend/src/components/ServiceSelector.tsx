@@ -16,7 +16,7 @@ export default function ServiceSelector({
 }: ServiceSelectorProps) {
   const [filter, setFilter] = useState('all');
   
-  const categories = ['all', ...new Set(services.map(service => service.category))];
+  const categories = ['all', ...Array.from(new Set(services.map(service => service.category)))];
   
   const filteredServices = filter === 'all' 
     ? services 
