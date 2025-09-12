@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  basePrice   Float
+  category    String
+  duration    Int      // Duration in minutes
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("services")
+}
+
+model Quote {
+  id                Int      @id @default(autoincrement())
+  customerName      String
+  customerEmail     String
+  customerPhone     String?
+  services          String   // JSON string of selected services
+  subtotal          Float
+  discount          Float    @default(0)
+  total             Float
+  estimatedDuration Int      // Total duration in minutes
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("quotes")
+}
