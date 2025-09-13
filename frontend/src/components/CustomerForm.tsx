@@ -19,9 +19,9 @@ export default function CustomerForm({ customerInfo, onChange }: CustomerFormPro
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-4">Customer Information</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Customer & Property Information</h2>
       <p className="text-gray-600 mb-4 text-sm">
-        Optional: Provide your contact information to save and email your quote.
+        Optional: Provide your information to save your quote and schedule electrical services.
       </p>
 
       <div className="space-y-4">
@@ -70,6 +70,43 @@ export default function CustomerForm({ customerInfo, onChange }: CustomerFormPro
           />
           <p className="text-xs text-gray-500 mt-1">
             For follow-up questions about your project
+          </p>
+        </div>
+
+        <div>
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+            Property Address
+          </label>
+          <input
+            type="text"
+            id="address"
+            value={customerInfo.address || ''}
+            onChange={handleChange('address')}
+            placeholder="Enter the property address where work will be performed"
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          />
+          <p className="text-xs text-gray-500 mt-1">
+            Required for permits and service location
+          </p>
+        </div>
+
+        <div>
+          <label htmlFor="propertyType" className="block text-sm font-medium text-gray-700 mb-1">
+            Property Type
+          </label>
+          <select
+            id="propertyType"
+            value={customerInfo.propertyType || ''}
+            onChange={(e) => onChange({ ...customerInfo, propertyType: e.target.value })}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+          >
+            <option value="">Select property type</option>
+            <option value="Residential">Residential (Home/Apartment)</option>
+            <option value="Commercial">Commercial (Office/Retail)</option>
+            <option value="Industrial">Industrial (Factory/Warehouse)</option>
+          </select>
+          <p className="text-xs text-gray-500 mt-1">
+            Helps determine applicable codes and pricing
           </p>
         </div>
       </div>

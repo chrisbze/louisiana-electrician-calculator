@@ -6,19 +6,26 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model Service {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  basePrice   Float
-  category    String
-  duration    Int      // Duration in minutes
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  name              String
+  description       String?
+  basePrice         Float
+  category          String   // Residential, Commercial, Emergency
+  serviceType       String   @default("Installation") // Installation, Repair, Inspection, Upgrade
+  duration          Int      // Duration in minutes
+  materialCost      Float?   // Estimated material cost
+  laborRate         Float?   // Per hour labor rate
+  minimumCharge     Float?   // Minimum service charge
+  requiresPermit    Boolean  @default(false)
+  permitCost        Float?   // Permit cost if required
+  difficultyLevel   String   @default("Standard") // Easy, Standard, Complex
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   @@map("services")
 }
@@ -28,11 +35,19 @@ model Quote {
   customerName      String
   customerEmail     String
   customerPhone     String?
+  customerAddress   String?  // Property address for electrical work
+  propertyType      String?  // Residential, Commercial, Industrial  
   services          String   // JSON string of selected services
   subtotal          Float
+  materialsCost     Float    @default(0)
+  laborCost         Float    @default(0)
+  permitCost        Float    @default(0)
   discount          Float    @default(0)
   total             Float
   estimatedDuration Int      // Total duration in minutes
+  emergencyService  Boolean  @default(false)
+  scheduledDate     DateTime?
+  notes             String?  // Special requirements or notes
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 

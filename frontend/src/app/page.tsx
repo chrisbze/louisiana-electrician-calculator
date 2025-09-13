@@ -85,16 +85,41 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Service Quote Calculator
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get instant quotes for professional services. Select the services you need,
-            and we'll calculate the best price with automatic discounts.
+          <div className="flex justify-center items-center mb-4">
+            <svg className="w-12 h-12 text-yellow-500 mr-3" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+            </svg>
+            <h1 className="text-4xl font-bold text-gray-900">
+              Louisiana Electrician Quote Calculator
+            </h1>
+          </div>
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            Get instant quotes for electrical services in Louisiana. Licensed, insured electricians 
+            serving residential and commercial properties. Automatic volume discounts available.
           </p>
+          <div className="mt-4 flex justify-center space-x-6 text-sm text-gray-600">
+            <span className="flex items-center">
+              <svg className="w-4 h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Licensed & Insured
+            </span>
+            <span className="flex items-center">
+              <svg className="w-4 h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              Emergency Services Available
+            </span>
+            <span className="flex items-center">
+              <svg className="w-4 h-4 text-green-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              NEC Code Compliant
+            </span>
+          </div>
         </div>
 
         {error && (
@@ -129,9 +154,9 @@ export default function Home() {
               <button
                 onClick={handleCalculateQuote}
                 disabled={calculating || selectedServices.length === 0}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+                className="flex-1 bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-black font-semibold py-3 px-6 rounded-lg transition duration-200 shadow-md"
               >
-                {calculating ? 'Calculating...' : 'Calculate Quote'}
+                {calculating ? 'Calculating Quote...' : 'Get Instant Quote'}
               </button>
               
               <button

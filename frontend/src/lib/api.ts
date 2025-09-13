@@ -1,6 +1,23 @@
 import { Service, Quote, CustomerInfo, ApiError } from '@/types';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+// Dynamic API URL based on client location
+const getApiUrl = () => {
+  if (typeof window === 'undefined') {
+    // Server-side rendering
+    return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
+  }
+  
+  // Client-side: check if we're accessing via network IP
+  const hostname = window.location.hostname;
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:3002';
+  } else {
+    // Use the same IP as the frontend but port 3002 for backend
+    return `http://${hostname}:3002`;
+  }
+};
+
+const API_BASE_URL = getApiUrl();
 
 class ApiClient {
   private baseURL: string;

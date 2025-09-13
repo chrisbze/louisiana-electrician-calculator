@@ -3,8 +3,15 @@ export interface Service {
   name: string;
   description: string;
   basePrice: number;
-  category: string;
+  category: string; // Residential, Commercial, Emergency
+  serviceType: string; // Installation, Repair, Inspection, Upgrade
   duration: number; // in minutes
+  materialCost?: number;
+  laborRate?: number;
+  minimumCharge?: number;
+  requiresPermit: boolean;
+  permitCost?: number;
+  difficultyLevel: string; // Easy, Standard, Complex
   createdAt: string;
   updatedAt: string;
 }
@@ -38,6 +45,8 @@ export interface CustomerInfo {
   name?: string;
   email?: string;
   phone?: string;
+  address?: string;
+  propertyType?: string; // Residential, Commercial, Industrial
 }
 
 export interface ApiError {

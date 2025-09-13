@@ -109,9 +109,20 @@ export default function ServiceSelector({
                     </div>
                   </div>
                   
-                  <div className="mt-2 flex items-center space-x-4 text-sm">
-                    <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded">
+                  <div className="mt-2 flex items-center space-x-2 text-sm flex-wrap">
+                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
                       {service.category}
+                    </span>
+                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded">
+                      {service.serviceType}
+                    </span>
+                    {service.requiresPermit && (
+                      <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">
+                        ⚠️ Permit Required
+                      </span>
+                    )}
+                    <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded">
+                      {service.difficultyLevel}
                     </span>
                     <span className="text-gray-600">
                       Duration: {formatDuration(service.duration)}
@@ -123,6 +134,16 @@ export default function ServiceSelector({
                   <div className="text-xl font-bold text-gray-900">
                     {formatPrice(service.basePrice)}
                   </div>
+                  {service.minimumCharge && service.minimumCharge !== service.basePrice && (
+                    <div className="text-xs text-gray-500">
+                      Min: {formatPrice(service.minimumCharge)}
+                    </div>
+                  )}
+                  {service.requiresPermit && service.permitCost && (
+                    <div className="text-xs text-orange-600">
+                      +{formatPrice(service.permitCost)} permit
+                    </div>
+                  )}
                   
                   {isSelected && (
                     <div className="mt-2">

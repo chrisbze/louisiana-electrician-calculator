@@ -24,7 +24,18 @@ app.use(limiter);
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001', 
+    'http://localhost:3003',
+    'http://localhost:3004',
+    'http://192.168.1.107:3000',
+    'http://192.168.1.107:3001',
+    'http://192.168.1.107:3003',
+    'http://192.168.1.107:3004',
+    process.env.CORS_ORIGIN,
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true,
   optionsSuccessStatus: 200
 };
@@ -74,10 +85,14 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`CORS origin: ${corsOptions.origin}`);
-});
+// Only start the server if this file is run directly, not when imported for testing
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Network: http://0.0.0.0:${PORT}`);
+    console.log(`CORS origin: ${corsOptions.origin}`);
+  });
+}
 
 module.exports = app;
